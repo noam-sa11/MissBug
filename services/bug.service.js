@@ -2,9 +2,11 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
-const STORAGE_KEY = 'bugDB'
+// const STORAGE_KEY = 'bugDB'
+import fs from 'fs'
+import { utilService } from "./utils.service.js"
 
-_createBugs()
+// _createBugs()
 
 export const bugService = {
     query,
@@ -13,10 +15,13 @@ export const bugService = {
     remove,
 }
 
+const cars = utilService.readJsonFile('data/bug.json')
 
 function query() {
-    return storageService.query(STORAGE_KEY)
+    // return storageService.query(STORAGE_KEY)
+    return Promise.resolve(cars)
 }
+
 function getById(bugId) {
     return storageService.get(STORAGE_KEY, bugId)
 }
