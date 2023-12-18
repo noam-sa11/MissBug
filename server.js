@@ -16,13 +16,21 @@ app.get('/', (req, res) =>
 app.get('/api/bug', (req, res) => {
     bugService.query()
         .then(bugs => {
-            res.send(bugs)
+            let visitedBugs = req.cookies.visitedBugs || []
+            const unvisitedBugs = bugs.filter(bug => !visitedBugs.includes(bug._id))
+            const bugsForDisplay = [...unvisitedBugs].splice(0, 3)
+            res.cookie(
+                'visitedBugs',
+                [...visitedBugs, ...bugsForDisplay.map((bug) => bug._id)],
+                { maxAge: 1000 * 7 }
+            )
+            res.send(bugsForDisplay)
         })
         .catch(err => {
             loggerService.error('Cannot get bugs', err)
             res.status(400).send('Cannot get bugs')
         })
-}) 
+})
 
 app.get('/api/bug/save', (req, res) => {
     const bugToSave = {
@@ -39,7 +47,7 @@ app.get('/api/bug/save', (req, res) => {
             loggerService.error('Cannot save bug', err)
             res.status(400).send('Cannot save bug')
         })
-}) 
+})
 
 app.get('/api/bug/:bugId', (req, res) => {
     const bugId = req.params.bugId
@@ -49,7 +57,7 @@ app.get('/api/bug/:bugId', (req, res) => {
             loggerService.error('Cannot get bug', err)
             res.status(400).send('Cannot get bug')
         })
-}) 
+})
 
 app.get('/api/bug/:bugId/remove', (req, res) => {
     const bugId = req.params.bugId

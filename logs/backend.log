@@ -3,3 +3,5 @@
 18.12.2023, 17:18:32 - ERROR - Cannot get bug | Bug dosen't exist!
 18.12.2023, 17:19:09 - ERROR - Cannot get bug | Bug dosen't exist!
 18.12.2023, 17:20:01 - ERROR - Cannot get bug | Bug dosen't exist!
+18.12.2023, 20:37:40 - ERROR - Cannot get bugs | ReferenceError: bugsToDisplay is not defined
+18.12.2023, 20:37:41 - ERROR - Cannot get bugs | ReferenceError: bugsToDisplay is not defined

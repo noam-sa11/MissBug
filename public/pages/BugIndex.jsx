@@ -19,7 +19,6 @@ export function BugIndex() {
         bugService
             .remove(bugId)
             .then(() => {
-                console.log('Deleted Succesfully!')
                 const bugsToUpdate = bugs.filter((bug) => bug._id !== bugId)
                 setBugs(bugsToUpdate)
                 showSuccessMsg('Bug removed')
@@ -35,7 +34,7 @@ export function BugIndex() {
             title: prompt('Bug title?'),
             description: prompt('Bug description?'),
             severity: +prompt('Bug severity?'),
-            createdAt: new Date(),
+            createdAt: Date.now(),
         }
         bugService
             .save(bug)

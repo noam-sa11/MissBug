@@ -1,5 +1,12 @@
 [
   {
+    "title": ".jsx missing",
+    "description": "you forgot to add .jsx when doing import",
+    "severity": 4,
+    "createdAt": null,
+    "_id": "1SJvP"
+  },
+  {
     "_id": "abc123",
     "title": "Cannot save a Car",
     "description": "problem when clicking Save",

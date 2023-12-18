@@ -13,9 +13,10 @@ export const bugService = {
 }
 
 
-function query() {
+function query(filterBy) {
     return axios.get(BASE_URL).then(res => res.data)
         .then(bugs => {
+            if (!filterBy) return bugs
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 bugs = bugs.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
