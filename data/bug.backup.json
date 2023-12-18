@@ -1,10 +1,10 @@
 [
   {
-    "title": "Network-error",
-    "description": "Error",
+    "_id": "abc123",
+    "title": "Cannot save a Car",
+    "description": "problem when clicking Save",
     "severity": 3,
-    "createdAt": 1542107359455,
-    "_id": "vd40oG"
+    "createdAt": 1542107359454
   },
   {
     "_id": "1NF1N1T3",

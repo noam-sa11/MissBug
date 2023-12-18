@@ -15,30 +15,49 @@ export const bugService = {
     remove,
 }
 
-const cars = utilService.readJsonFile('data/bug.json')
+const bugs = utilService.readJsonFile('data/bug.json')
 
 function query() {
-    // return storageService.query(STORAGE_KEY)
-    return Promise.resolve(cars)
+    return Promise.resolve(bugs)
 }
 
 function getById(bugId) {
-    return storageService.get(STORAGE_KEY, bugId)
+    const bug = bugs.find(bug => bug._id === bugId)
+    if (!bug) return Promise.reject('Bug dosen\'t exist!')
+    
+    return Promise.resolve(bug)
 }
 
 function remove(bugId) {
-    return storageService.remove(STORAGE_KEY, bugId)
+    const bugIdx = bugs.findIndex(bug => bug._id === bugId)
+    bugs.splice(bugIdx, 1)
+    return _saveBugsToFile()
 }
 
 function save(bug) {
     if (bug._id) {
-        return storageService.put(STORAGE_KEY, bug)
+        const bugIdx = bugs.findIndex(currBug => currBug._id === bug._id)
+        bugs[bugIdx] = bug
     } else {
-        return storageService.post(STORAGE_KEY, bug)
+        bug._id = utilService.makeId()
+        bugs.unshift(bug)
     }
+
+    return _saveBugsToFile().then(() => bug)
 }
 
-
+function _saveBugsToFile() {
+    return new Promise((resolve, reject) => {
+        const data = JSON.stringify(bugs, null, 2)
+        fs.writeFile('data/bug.json', data, (err) => {
+            if (err) {
+                console.log(err)
+                return reject(err)
+            }
+            resolve()
+        })
+    })
+}
 
 
 function _createBugs() {
