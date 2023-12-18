@@ -13,7 +13,6 @@ app.get('/', (req, res) =>
 app.get('/api/bug', (req, res) => {
     bugService.query()
         .then(bugs => {
-            console.log('bugs:', bugs)
             res.send(bugs)
         })
         .catch(err => {
