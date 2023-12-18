@@ -1,0 +1,23 @@
+{
+  "name": "miss-bug-proj",
+  "version": "1.0.0",
+  "description": "First Fullstack proj",
+  "main": "app.js",
+  "type": "module",
+
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  
+  "author": "Noam Saar",
+  "license": "ISC",
+
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2"
+  }
+}
