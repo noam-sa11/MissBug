@@ -16,7 +16,7 @@ app.get('/', (req, res) =>
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    const { txt, minSeverity, label, pageIdx, sortBy, sortDir = -1 } = req.query
+    const { txt, minSeverity, label, pageIdx, sortBy, sortDir = 1 } = req.query
     const filterBy = {
         txt: txt || '',
         minSeverity: minSeverity || 0,
@@ -59,7 +59,6 @@ app.post('/api/bug', (req, res) => {
         severity: +severity,
         labels,
     }
-    console.log('bugToSave:', bugToSave)
     bugService
         .save(bugToSave)
         .then(savedBug => res.send(savedBug))

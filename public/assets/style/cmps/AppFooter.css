@@ -1,0 +1,6 @@
+.app-footer {
+    background-color: var(--clr1);
+    color: var(--clr1bg-light);
+    padding-block-start: 1rem;
+}
+

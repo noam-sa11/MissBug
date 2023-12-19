@@ -1,0 +1,30 @@
+.bug-index {
+    grid-template-rows: auto auto 1fr auto;
+    padding-block-start: 1rem;
+    gap: 1rem;
+}
+
+.bug-index button {
+    justify-self: center;
+}
+
+.bug-index .pagination {
+    justify-self: center;
+}
+
+.bug-index .actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.bug-index .actions .add-bug{
+    display: flex;
+    align-items: stretch;
+}
+
+.bug-index .actions button {
+    margin: 0;
+    background-color: var(--clr2bg);
+}

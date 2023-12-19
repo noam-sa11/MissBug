@@ -1,0 +1,28 @@
+.bug-preview {
+    position: relative;
+    text-align: center;
+    padding: 0.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bug-preview h4 {
+    text-transform: capitalize;
+    color: black;
+}
+
+.bug-preview img {
+    max-width: 100px;
+}
+
+.bug-preview .btn-delete {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
+    padding: 0.4rem 0.5rem;
+}
+
+.bug-preview p {
+    margin-block-end: 0;
+}

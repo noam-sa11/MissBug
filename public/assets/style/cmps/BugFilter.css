@@ -1,0 +1,26 @@
+.bug-filter form {
+    display: grid;
+    grid-auto-flow: column;
+    padding: 1rem;
+    background-color: var(--clr2bg);
+}
+
+.bug-sort select {
+    padding: 1rem;
+    background-color: var(--clr2bg);
+}
+
+.bug-sort {
+    display: flex;
+}
+
+.bug-sort .sortSelect {
+    padding: 0.5rem;
+    align-self: center;
+}
+
+.sortDirSelect {
+    align-self: stretch;
+    text-align: center;
+    background-color: var(--clr2bg);
+}

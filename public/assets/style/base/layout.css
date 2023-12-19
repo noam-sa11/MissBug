@@ -1,0 +1,28 @@
+.main-layout {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr 1.6rem;
+    align-items: start;
+}
+
+.app.main-layout {
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
+.main-layout>* {
+    grid-column: 2;
+}
+
+.main-layout .full {
+    grid-column: 1/-1;
+}
+
+.container {
+    max-width: 800px;
+    padding: 1em;
+    margin: auto;
+}
+
+main.main-layout {
+    height: 100%
+}

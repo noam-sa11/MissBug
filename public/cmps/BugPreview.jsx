@@ -1,10 +1,28 @@
 
 
-export function BugPreview({bug}) {
-
+export function BugPreview({ bug }) {
     return <article>
-        <h4>{bug.title}</h4>
         <h1>🐛</h1>
-        <p>Severity: <span>{bug.severity}</span></p>
+        <h4>{bug.title}</h4>
+        <fieldset>
+            <legend>Severity: </legend>
+            <span>{bug.severity}</span>
+        </fieldset>
+        <fieldset>
+            <legend>Created At: </legend>
+            <span>{new Date(bug.createdAt).toLocaleString()}</span>
+        </fieldset>
+        <fieldset>
+            <legend>Labels: </legend>
+            <p> 
+                {bug.labels.map((label, idx) => (
+                    <React.Fragment key={idx}>
+                        {label}
+                        {idx < bug.labels.length - 1 && <br />}
+                    </React.Fragment>
+                ))}
+            </p>
+        </fieldset>
+
     </article>
 }

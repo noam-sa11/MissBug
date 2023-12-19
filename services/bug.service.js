@@ -15,7 +15,7 @@ const bugs = utilService.readJsonFile('data/bug.json')
 
 function query(filterBy) {
     if (!bugs || !bugs.length) return Promise.reject('No bugs..')
-    console.log('filterBy:', filterBy)
+    // console.log('filterBy:', filterBy)
     let bugsToReturn = bugs
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')

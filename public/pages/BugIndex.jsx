@@ -4,6 +4,7 @@ import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from '../cmps/BugFilter.jsx'
+import { BugSort } from '../cmps/BugSort.jsx'
 
 
 const { useState, useEffect, useRef } = React
@@ -100,25 +101,38 @@ export function BugIndex() {
         return value === undefined
     }
 
+    const handleSort = (selectedSort, sortDir) => {
+        console.log('sortDir:', sortDir)
+        setFilterBy((prevFilter) => ({
+            ...prevFilter,
+            sortBy: selectedSort,
+            sortDir: sortDir,
+            pageIdx: isUndefined(prevFilter.pageIdx) ? undefined : 0,
+        }))
+    }
+
     const { txt, minSeverity, label, pageIdx } = filterBy
 
     if (!bugs) return <div>Loading...</div>
     return (
-        <main>
-            <h3>Bugs App</h3>
-            <main>
-                <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={debounceOnSetFilter.current} />
-                
-                <button onClick={onAddBug}>Add Bug ⛐</button>
+        <main className="bug-index main-layout full">
+            <BugFilter filterBy={{ txt, minSeverity, label }} onSetFilter={debounceOnSetFilter.current} />
 
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+            <section className="actions">
+                <BugSort onSort={handleSort} />
+                <fieldset className="add-bug">
+                    <legend>Add Bug:</legend>
+                    <button onClick={onAddBug}>Add Bug ⛐</button>
+                </fieldset>
+            </section>
 
-                <section className="pagination">
-                    <button onClick={() => onChangePageIdx(1)}>+</button>
-                    {pageIdx + 1 || 'No Pagination'}
-                    <button onClick={() => onChangePageIdx(-1)} >-</button>
-                </section>
-            </main>
+            <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+
+            <section className="pagination">
+                <button onClick={() => onChangePageIdx(1)}>+</button>
+                {pageIdx + 1 || 'No Pagination'}
+                <button onClick={() => onChangePageIdx(-1)} >-</button>
+            </section>
         </main>
     )
 }

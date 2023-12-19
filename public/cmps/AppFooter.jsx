@@ -8,7 +8,7 @@ export function AppFooter () {
     }, [])
 
     return (
-        <footer>
+        <footer className="app-footer full flex justify-center align-center" >
             <p>
                 coffeerights to all
             </p>

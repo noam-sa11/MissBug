@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* font-family:'Courier New', Courier, monospace; */
+  color: var(--gray3);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: .5em 0 .5em;
+  font-family:'Courier New', Courier, monospace;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+button {
+  font-family:'Courier New', Courier, monospace;
+  background-color: var(--gray2);
+  border: 1px solid black;
+  cursor: pointer;
+  margin: 1rem;
+  padding: 0.5em 0.8em;
+  border-radius: 4px;
+}
+
+/* Dont stretch my Media */
+img,
+embed,
+video,
+object {
+  max-width: 100%
+}
+
+/* Simple and useful CSS Debugging Technique */
+.debug * {
+  outline: 1px solid gold
+}

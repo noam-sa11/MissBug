@@ -1,0 +1,12 @@
+
+
+button:hover {
+    background-color: var(--clr2);
+    color: white;
+    transition: 0.3s;
+}
+
+input:focus {
+    background-color: var(--clr1bg);
+    transition: background-color 1s;
+}

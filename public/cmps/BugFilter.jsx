@@ -37,19 +37,24 @@ export function BugFilter({ filterBy, onSetFilter }) {
 
     const { txt, minSeverity, labels } = filterByToEdit
     return (
-        <section className="bug-filter main-layout full">
-            <h2>Filter Our Bugs</h2>
+        <fieldset className="bug-filter">
+            <legend>Filter Our Bugs</legend>
             <form onSubmit={onSetFilterBy} >
-                <label htmlFor="txt">Text: </label>
-                <input value={txt} onChange={handleChange} type="text" id="txt" name="txt" />
+                <fieldset htmlFor="txt">
+                    <legend>Text: </legend>
+                    <input value={txt} onChange={handleChange} type="text" id="txt" name="txt" />
+                </fieldset>
 
-                <label htmlFor="minSeverity">minSeverity: </label>
-                <input value={minSeverity || ''} onChange={handleChange} type="number" id="minSeverity" name="minSeverity" />
+                <fieldset htmlFor="minSeverity">
+                    <legend>minSeverity: </legend>
+                    <input value={minSeverity || ''} onChange={handleChange} type="number" id="minSeverity" name="minSeverity" />
+                </fieldset>
 
-                <label htmlFor="label">Label: </label>
-                <input value={labels} onChange={handleChange} type="text" id="label" name="label" />
-                <button>Submit</button>
+                <fieldset htmlFor="label">
+                    <legend>Label: </legend>
+                    <input value={labels} onChange={handleChange} type="text" id="label" name="label" />
+                </fieldset>
             </form>
-        </section>
+        </fieldset>
     )
 }

@@ -1,6 +1,4 @@
 
-import { utilService } from './util.service.js'
-
 const BASE_URL = '/api/bug/'
 
 export const bugService = {
@@ -33,5 +31,12 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { txt: '', severity: '', lable: '', pageIdx: 0 }
+    return {
+        txt: '',
+        severity: '',
+        lable: '',
+        sortBy: 'createdAt',
+        sortDir: 1,
+        pageIdx: 0
+    }
 }
