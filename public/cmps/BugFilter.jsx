@@ -35,7 +35,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    const { txt, minSeverity, label } = filterByToEdit
+    const { txt, minSeverity, labels } = filterByToEdit
     return (
         <section className="bug-filter main-layout full">
             <h2>Filter Our Bugs</h2>
@@ -47,7 +47,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
                 <input value={minSeverity || ''} onChange={handleChange} type="number" id="minSeverity" name="minSeverity" />
 
                 <label htmlFor="label">Label: </label>
-                <input value={label} onChange={handleChange} type="text" id="label" name="label" />
+                <input value={labels} onChange={handleChange} type="text" id="label" name="label" />
                 <button>Submit</button>
             </form>
         </section>

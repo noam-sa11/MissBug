@@ -28,7 +28,6 @@
     "title": "Infinite Loop Detected",
     "description": "Infinite Loop Detected",
     "severity": 4,
-    "createdAt": 1702987866844,
     "labels": [
       "fatal",
       "need-CR",

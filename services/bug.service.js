@@ -15,7 +15,7 @@ const bugs = utilService.readJsonFile('data/bug.json')
 
 function query(filterBy) {
     if (!bugs || !bugs.length) return Promise.reject('No bugs..')
-
+    console.log('filterBy:', filterBy)
     let bugsToReturn = bugs
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
@@ -25,7 +25,7 @@ function query(filterBy) {
         bugsToReturn = bugsToReturn.filter(bug => bug.severity >= filterBy.minSeverity)
     }
     if (filterBy.label) {
-        bugsToReturn = bugsToReturn.filter(bug => bug.labels.includes(filterBy.label))
+        bugsToReturn = bugsToReturn.filter(bug => bug.labels.some(label => label.includes(filterBy.label)))
     }
 
     if (filterBy.pageIdx !== undefined) {
@@ -33,7 +33,7 @@ function query(filterBy) {
         bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
     }
 
-    
+
     return Promise.resolve(bugsToReturn)
 }
 
