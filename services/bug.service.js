@@ -12,7 +12,7 @@ export const bugService = {
 
 const bugs = utilService.readJsonFile('data/bug.json')
 
-function query() {
+function query(filterBy) {
     if (!bugs || !bugs.length) return Promise.reject('No bugs..')
     return Promise.resolve(bugs)
 }

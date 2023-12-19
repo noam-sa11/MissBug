@@ -1,11 +1,16 @@
 import { bugService } from '../services/bug.service.js'
+import { utilService } from "../services/util.service.js"
+
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
+
 
 const { useState, useEffect } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
+    const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
+    const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
 
     useEffect(() => {
         loadBugs()
