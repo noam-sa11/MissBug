@@ -14,6 +14,7 @@ app.get('/', (req, res) =>
     res.send('Hello there')
 )
 
+// Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
     bugService.query()
         .then(bugs => res.send(bugs))
@@ -23,13 +24,34 @@ app.get('/api/bug', (req, res) => {
         })
 })
 
-app.get('/api/bug/save', (req, res) => {
-    const { title, description, severity, _id } = req.query
+// Add Bug (CREATE)
+app.post('/api/bug', (req, res) => {
+    const { title, description, severity, labels } = req.body
+    const bugToSave = {
+        title,
+        description,
+        severity: +severity,
+        labels,
+    }
+    console.log('bugToSave:', bugToSave)
+    bugService
+        .save(bugToSave)
+        .then(savedBug => res.send(savedBug))
+        .catch((err) => {
+            loggerService.error('Cannot save bug', err)
+            res.status(400).send('Cannot save bug')
+        })
+})
+
+// Edit Bug (UPDATE)
+app.put('/api/bug', (req, res) => {
+    const { title, description, severity, labels, _id } = req.body
     const bugToSave = {
         _id,
         title,
         description,
         severity: +severity,
+        labels,
     }
 
     bugService
@@ -41,6 +63,7 @@ app.get('/api/bug/save', (req, res) => {
         })
 })
 
+// Get Bug (READ)
 app.get('/api/bug/:bugId', (req, res) => {
     const { bugId } = req.params
     const { visitCountMap = [] } = req.cookies
@@ -58,7 +81,8 @@ app.get('/api/bug/:bugId', (req, res) => {
         })
 })
 
-app.get('/api/bug/:bugId/remove', (req, res) => {
+// Remove Bug (DELETE)
+app.delete('/api/bug/:bugId', (req, res) => {
     const { bugId } = req.params
     bugService.remove(bugId)
         .then(() => {

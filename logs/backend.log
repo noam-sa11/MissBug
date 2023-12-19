@@ -5,3 +5,12 @@
 18.12.2023, 17:20:01 - ERROR - Cannot get bug | Bug dosen't exist!
 18.12.2023, 20:37:40 - ERROR - Cannot get bugs | ReferenceError: bugsToDisplay is not defined
 18.12.2023, 20:37:41 - ERROR - Cannot get bugs | ReferenceError: bugsToDisplay is not defined
+19.12.2023, 14:36:09 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:40:43 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:42:48 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:43:02 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:43:15 - INFO - Bug 1SJvP removed
+19.12.2023, 14:48:30 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:49:46 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:50:17 - INFO - Server listening on port http://127.0.0.1:3030/
+19.12.2023, 14:50:40 - INFO - Server listening on port http://127.0.0.1:3030/
