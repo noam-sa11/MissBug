@@ -16,15 +16,8 @@ app.get('/', (req, res) =>
 app.get('/api/bug', (req, res) => {
     bugService.query()
         .then(bugs => {
-            let visitedBugs = req.cookies.visitedBugs || []
-            const unvisitedBugs = bugs.filter(bug => !visitedBugs.includes(bug._id))
-            const bugsForDisplay = [...unvisitedBugs].splice(0, 3)
-            res.cookie(
-                'visitedBugs',
-                [...visitedBugs, ...bugsForDisplay.map((bug) => bug._id)],
-                { maxAge: 1000 * 7 }
-            )
-            res.send(bugsForDisplay)
+
+            // res.send(bugs)
         })
         .catch(err => {
             loggerService.error('Cannot get bugs', err)
@@ -50,7 +43,14 @@ app.get('/api/bug/save', (req, res) => {
 })
 
 app.get('/api/bug/:bugId', (req, res) => {
-    const bugId = req.params.bugId
+    const { bugId } = req.params
+    const { visitCountMap = [] } = req.cookies
+
+    if (visitCountMap.length >= 3) return res.status(401).send('Exceeded visit count')
+    if (!visitCountMap.includes(bugId)) visitCountMap.push(bugId)
+
+    res.cookie('visitedBugs', visitCountMap, { maxAge: 1000 * 7 })
+
     bugService.getById(bugId)
         .then(bug => res.send(bug))
         .catch((err) => {
