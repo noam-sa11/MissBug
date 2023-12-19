@@ -12,7 +12,13 @@ export function BugIndex() {
     }, [])
 
     function loadBugs() {
-        bugService.query().then(setBugs)
+        bugService
+            .query()
+            .then(setBugs)
+            .catch((err) => {
+                console.log('Error getting Bugs', err)
+                showErrorMsg('Cannot get bugs')
+            })
     }
 
     function onRemoveBug(bugId) {

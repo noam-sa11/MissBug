@@ -24,7 +24,7 @@ function getById(bugId) {
 
 function remove(bugId) {
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
-    bugs.splice(bugIdx, 1)
+    if(idx !== -1) bugs.splice(bugIdx, 1)
     return _saveBugsToFile()
 }
 
