@@ -70,5 +70,53 @@
       "need-CR",
       "dev-branch"
     ]
+  },
+  {
+    "_id": "1NF1N3T3",
+    "title": "Forgot to do npm i",
+    "description": "Forgot to install the dependencies",
+    "severity": 5,
+    "createdAt": 1702987868044,
+    "labels": [
+      "fatal",
+      "help",
+      "dev-branch"
+    ]
+  },
+  {
+    "_id": "K3Y10RD",
+    "title": "Lib Not Found",
+    "description": "problem when trying too load a lib",
+    "severity": 3,
+    "createdAt": 1702984865844,
+    "labels": [
+      "critical",
+      "need-CR",
+      "dev-branch"
+    ]
+  },
+  {
+    "_id": "C0FF83",
+    "title": "404 sleep Not Found",
+    "description": "Severe sleep deprevation",
+    "severity": 2,
+    "createdAt": 1702983864844,
+    "labels": [
+      "warnning",
+      "need-CR",
+      "dev-branch"
+    ]
+  },
+  {
+    "_id": "G0153",
+    "title": "Something that nobody can explane happened",
+    "description": "Computer Magic",
+    "severity": 5,
+    "createdAt": 1702982863844,
+    "labels": [
+      "fatal",
+      "No Clue",
+      "dev-branch"
+    ]
   }
 ]
