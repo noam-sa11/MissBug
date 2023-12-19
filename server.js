@@ -16,7 +16,16 @@ app.get('/', (req, res) =>
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    console.log('req.query:', req.query)
+    const { txt, minSeverity, label, pageIdx } = req.query
+    const filterBy = {
+        txt: txt || '',
+        minSeverity: minSeverity || 0,
+        label: label || '',
+        pageIdx: pageIdx
+    }
+
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .catch(err => {
             loggerService.error('Cannot get bugs', err)

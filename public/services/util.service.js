@@ -7,7 +7,8 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     loadFromStorage,
-    saveToStorage
+    saveToStorage, 
+    debounce
 }
 
 function readJsonFile(path) {
@@ -52,4 +53,17 @@ function loadFromStorage(keyDB) {
 function saveToStorage(keyDB, val) {
     const valStr = JSON.stringify(val)
     localStorage.setItem(keyDB, valStr)
+}
+
+function debounce(fn, wait) {
+    let timer
+    return function (...args) {
+        if (timer) {
+            clearTimeout(timer) // clear any pre-existing timer
+        }
+        const context = this // get the current context
+        timer = setTimeout(() => {
+            fn.apply(context, args) // call the function if time expires
+        }, wait)
+    }
 }
