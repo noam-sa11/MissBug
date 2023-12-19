@@ -1,6 +1,7 @@
 
 import fs from 'fs'
 import { utilService } from "./util.service.js"
+import { loggerService } from './logger.service.js'
 
 export const bugService = {
     query,
@@ -12,6 +13,7 @@ export const bugService = {
 const bugs = utilService.readJsonFile('data/bug.json')
 
 function query() {
+    if (!bugs || !bugs.length) return Promise.reject('No bugs..')
     return Promise.resolve(bugs)
 }
 
@@ -34,6 +36,7 @@ function save(bug) {
         bugs[bugIdx] = bug
     } else {
         bug._id = utilService.makeId()
+        bug.createdAt = Date.now()
         bugs.unshift(bug)
     }
 
@@ -45,9 +48,10 @@ function _saveBugsToFile() {
         const data = JSON.stringify(bugs, null, 2)
         fs.writeFile('data/bug.json', data, (err) => {
             if (err) {
-                console.log(err)
+                loggerService.error('Cannot write to bugs file', err)
                 return reject(err)
             }
+            console.log('The file was saved!')
             resolve()
         })
     })
