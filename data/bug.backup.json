@@ -9,7 +9,11 @@
       "fatal",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Nono Na"
+    }
   },
   {
     "_id": "abc123",
@@ -21,7 +25,11 @@
       "critical",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Nono Na"
+    }
   },
   {
     "_id": "1NF1N1T3",
@@ -33,7 +41,11 @@
       "fatal",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Nono Na"
+    }
   },
   {
     "_id": "K3YB0RD",
@@ -45,7 +57,11 @@
       "critical",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Nono Na"
+    }
   },
   {
     "_id": "C0FF33",
@@ -57,7 +73,11 @@
       "warnning",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u101",
+      "fullname": "Nono Na"
+    }
   },
   {
     "_id": "G0053",
@@ -69,7 +89,11 @@
       "warnning",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u102",
+      "fullname": "Kiki Ka"
+    }
   },
   {
     "_id": "1NF1N3T3",
@@ -81,7 +105,11 @@
       "fatal",
       "help",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u103",
+      "fullname": "Mimi Ma"
+    }
   },
   {
     "_id": "K3Y10RD",
@@ -93,7 +121,11 @@
       "critical",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u103",
+      "fullname": "Mimi Ma"
+    }
   },
   {
     "_id": "C0FF83",
@@ -105,7 +137,11 @@
       "warnning",
       "need-CR",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u103",
+      "fullname": "Mimi Ma"
+    }
   },
   {
     "_id": "G0153",
@@ -117,6 +153,10 @@
       "fatal",
       "No Clue",
       "dev-branch"
-    ]
+    ],
+    "creator": {
+      "_id": "u103",
+      "fullname": "Mimi Ma"
+    }
   }
 ]
