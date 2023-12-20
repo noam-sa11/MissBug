@@ -21,34 +21,18 @@ app.get('/api/bug', (req, res) => {
         txt: txt || '',
         minSeverity: minSeverity || 0,
         label: label || '',
-        pageIdx: pageIdx
+        pageIdx: pageIdx, 
+        sortBy, 
+        sortDir,
     }
 
     bugService.query(filterBy)
-        .then(bugs => {
-            if (sortBy) {
-                bugs = sortBugs(bugs, sortBy, sortDir)
-            }
-            res.send(bugs)
-        })
+        .then(bugs => res.send(bugs))
         .catch(err => {
             loggerService.error('Cannot get bugs', err)
             res.status(400).send('Cannot get bugs')
         })
 })
-
-function sortBugs(bugs, sortBy, sortDir) {
-    switch (sortBy) {
-        case 'title':
-            return bugs.sort((b1, b2) => sortDir * b1.title.localeCompare(b2.title))
-        case 'severity':
-            return bugs.sort((b1, b2) => sortDir * (b1.severity - b2.severity))
-        case 'createdAt':
-            return bugs.sort((b1, b2) => sortDir * (b1.createdAt - b2.createdAt))
-        default:
-            return bugs
-    }
-}
 
 // Add Bug (CREATE)
 app.post('/api/bug', (req, res) => {
