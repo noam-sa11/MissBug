@@ -15,18 +15,22 @@ const bugs = utilService.readJsonFile('data/bug.json')
 
 function query(filterBy) {
     if (!bugs || !bugs.length) return Promise.reject('No bugs..')
-    const { txt, minSeverity, label, pageIdx, sortBy, sortDir } = filterBy
-    // console.log('filterBy:', filterBy)
+    const { txt, minSeverity, label, pageIdx, sortBy, sortDir, creatorId } = filterBy
+
     let bugsToReturn = bugs
     if (txt) {
         const regExp = new RegExp(txt, 'i')
-        bugsToReturn = bugsToReturn.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
+        bugsToReturn = bugsToReturn.filter(bug => regExp.test(bug.title) ||regExp.test(bug.description))
     }
     if (minSeverity) {
         bugsToReturn = bugsToReturn.filter(bug => bug.severity >= minSeverity)
     }
     if (label) {
         bugsToReturn = bugsToReturn.filter(bug => bug.labels.some(label => label.includes(label)))
+    }
+    if (creatorId) {
+        const regExp = new RegExp(creatorId, 'i')
+        bugsToReturn = bugsToReturn.filter(bug => regExp.test(bug.creator._id))
     }
 
     if (pageIdx !== undefined) {
@@ -57,22 +61,34 @@ function sortBugs(bugs, sortBy, sortDir) {
 function getById(bugId) {
     const bug = bugs.find(bug => bug._id === bugId)
     if (!bug) return Promise.reject('Bug dosen\'t exist!')
-    
+
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedInUser) {
     const bugIdx = bugs.findIndex(bug => bug._id === bugId)
-    if(bugIdx !== -1) bugs.splice(bugIdx, 1)
+    if (bugIdx === -1) return Promise.reject('No Such Car')
+    const bug = bugs[idx]
+    if (!loggedInUser.isAdmin &&
+        bug.creator._id !== loggedInUser._id) {
+        return Promise.reject('Not your bug')
+    }
+    bugs.splice(bugIdx, 1)
     return _saveBugsToFile()
 }
 
-function save(bug) {
+function save(bug, loggedInUser) {
     if (bug._id) {
         const bugIdx = bugs.findIndex(currBug => currBug._id === bug._id)
+        const bugToUpdate = bugs[bugIdx]
+        if (!loggedInUser.isAdmin &&
+            bugToUpdate.owner._id !== loggedInUser._id) {
+            return Promise.reject('Not your bug')
+        }
         bugs[bugIdx] = bug
     } else {
         bug._id = utilService.makeId()
+        bug.creator = loggedInUser
         bug.createdAt = Date.now()
         bugs.unshift(bug)
     }
