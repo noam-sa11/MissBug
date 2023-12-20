@@ -1,8 +1,11 @@
-import { bugService } from './services/bug.service.js'
-import { loggerService } from './services/logger.service.js'
 
+import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
+
+import { bugService } from './services/bug.service.js'
+import { userService } from './services/user.service.js'
+import { loggerService } from './services/logger.service.js'
 
 const app = express()
 
@@ -16,14 +19,16 @@ app.get('/', (req, res) =>
 
 // Get Bugs (READ)
 app.get('/api/bug', (req, res) => {
-    const { txt, minSeverity, label, pageIdx, sortBy, sortDir = 1 } = req.query
+    const { txt = '', minSeverity = 0, label,
+        pageIdx, sortBy = 'createdAt', sortDir = 1, creatorId = []} = req.query
     const filterBy = {
-        txt: txt || '',
-        minSeverity: minSeverity || 0,
-        label: label || '',
-        pageIdx: pageIdx, 
-        sortBy, 
+        txt,
+        minSeverity,
+        label,
+        pageIdx,
+        sortBy,
         sortDir,
+        creatorId,
     }
 
     bugService.query(filterBy)
@@ -36,6 +41,9 @@ app.get('/api/bug', (req, res) => {
 
 // Add Bug (CREATE)
 app.post('/api/bug', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot add bug')
+
     const { title, description, severity, labels } = req.body
     const bugToSave = {
         title,
@@ -43,8 +51,9 @@ app.post('/api/bug', (req, res) => {
         severity: +severity,
         labels,
     }
+
     bugService
-        .save(bugToSave)
+        .save(bugToSave, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch((err) => {
             loggerService.error('Cannot save bug', err)
@@ -54,6 +63,9 @@ app.post('/api/bug', (req, res) => {
 
 // Edit Bug (UPDATE)
 app.put('/api/bug', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot update bug')
+
     const { title, description, severity, labels, _id } = req.body
     const bugToSave = {
         _id,
@@ -64,7 +76,7 @@ app.put('/api/bug', (req, res) => {
     }
 
     bugService
-        .save(bugToSave)
+        .save(bugToSave, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch((err) => {
             loggerService.error('Cannot save bug', err)
@@ -92,8 +104,11 @@ app.get('/api/bug/:bugId', (req, res) => {
 
 // Remove Bug (DELETE)
 app.delete('/api/bug/:bugId', (req, res) => {
+    const loggedinUser = userService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot delete bug')
+
     const { bugId } = req.params
-    bugService.remove(bugId)
+    bugService.remove(bugId, loggedinUser)
         .then(() => {
             loggerService.info(`Bug ${bugId} removed`)
             res.send(bugId)
@@ -103,6 +118,51 @@ app.delete('/api/bug/:bugId', (req, res) => {
             res.status(400).send('Cannot remove bug')
         })
 })
+
+// AUTH API
+app.get('/api/user', (req, res) => {
+    userService.query()
+        .then((users) => {
+            res.send(users)
+        })
+        .catch((err) => {
+            console.log('Cannot load users', err)
+        })
+})
+
+app.post('/api/auth/signup', (req, res) => {
+    const credentials = req.body
+    userService.save(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+})
+
+app.post('/api/auth/login', (req, res) => {
+    const credentials = req.body
+    userService.checkLogin(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+})
+
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('logged out')
+})
+
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
