@@ -1,4 +1,5 @@
 import { utilService } from "../services/util.service.js"
+import { userService } from "../services/user.service.js"
 import { bugService } from '../services/bug.service.js'
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
@@ -11,6 +12,7 @@ const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
+    const [user, setUser] = useState(userService.getLoggedInUser())
     const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
     const debounceOnSetFilter = useRef(utilService.debounce(onSetFilter, 500))
 
@@ -55,6 +57,7 @@ export function BugIndex() {
             description: prompt('Bug description?'),
             severity: +prompt('Bug severity?'),
             createdAt: Date.now(),
+            creator: userService.getLoggedInUser(),
         }
         bugService
             .save(bug)
