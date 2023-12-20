@@ -103,6 +103,9 @@ app.delete('/api/bug/:bugId', (req, res) => {
             res.status(400).send('Cannot remove bug')
         })
 })
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
+})
 
 const PORT = 3030
 app.listen(PORT, () =>
