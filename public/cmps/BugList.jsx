@@ -13,6 +13,11 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
         return user.isAdmin || bug.creator._id === user._id
     }
 
+    function isAdmin() {
+        if (userService.isUserAdmin()) return true
+        return flase
+    }
+
     if (!bugs) return <div>Loading...</div>
     return (
         <ul className="bug-list">
@@ -21,7 +26,7 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
                     <BugPreview bug={bug} />
                     <div>
                         <button><Link to={`/bug/${bug._id}`}>Details</Link></button>
-                        {isOwner(bug) &&
+                        {isOwner(bug) || isAdmin() &&
                             <div>
                                 <button className="btn-delete" onClick={() => onRemoveBug(bug._id)}>x</button>
                                 <button onClick={() => onEditBug(bug)}>Edit</button>

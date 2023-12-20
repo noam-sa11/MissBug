@@ -163,10 +163,6 @@ app.post('/api/auth/logout', (req, res) => {
     res.send('logged out')
 })
 
-app.get('/**', (req, res) => {
-    res.sendFile(path.resolve('public/index.html'))
-})
-
 const PORT = 3030
 app.listen(PORT, () =>
     loggerService.info(`Server listening on port http://127.0.0.1:${PORT}/`)

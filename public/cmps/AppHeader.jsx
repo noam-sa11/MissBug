@@ -10,6 +10,7 @@ export function AppHeader() {
   const navigate = useNavigate()
 
   const [user, setUser] = useState(userService.getLoggedInUser())
+  const isUserAdmin = userService.isUserAdmin()
 
   function onLogout() {
     userService.logout()
@@ -34,7 +35,13 @@ export function AppHeader() {
           <NavLink to="/">Home</NavLink> |
           <NavLink to="/bug">Bugs</NavLink> |
           <NavLink to="/profile">Profile</NavLink> |
+          {isUserAdmin &&
+            <React.Fragment>
+              <NavLink to="/userList">User List</NavLink> |
+            </React.Fragment>
+          }
           <NavLink to="/about">About</NavLink>
+
         </nav>
         {user ? (
           <section className="login">

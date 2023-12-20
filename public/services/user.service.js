@@ -5,11 +5,17 @@ export const userService = {
     signup,
     logout,
     getLoggedInUser,
-    getEmptyCredentials
+    getEmptyCredentials, 
+    isUserAdmin
 }
 
 function getLoggedInUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+function isUserAdmin() {
+    const user = getLoggedInUser()
+    return user && user.isAdmin
 }
 
 function login({ username, password }) {

@@ -10,6 +10,7 @@ import { BugDetails } from './pages/BugDetails.jsx'
 // import { BugEdit } from './pages/BugEdit.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
+import { UserList } from './pages/UserList.jsx'
 
 export function App() {
     return (
@@ -23,6 +24,7 @@ export function App() {
                         <Route path="/bug" element={<BugIndex />} />
                         <Route path="/bug/:bugId" element={<BugDetails />} />
                         <Route path="/profile" element={<UserDetails />} />
+                        <Route path="/userList" element={<UserList />} />
                         {/* <Route path="/bug/edit/:carId" element={<BugEdit />} />
                         <Route path="/bug/edit" element={<BugEdit />} /> */}
                     </Routes>
