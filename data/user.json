@@ -1,20 +1,23 @@
 [
     {
         "_id": "u101",
-        "username": "Nono",
+        "username": "admin",
         "fullname": "Nono Na",
-        "password": "nono"
+        "password": "admin",
+        "isAdmin": true
     },
     {
         "_id": "u102",
         "username": "Kiki",
         "fullname": "Kiki Ka",
-        "password": "kiki"
+        "password": "kiki", 
+        "isAdmin": false
     },
     {
         "_id": "u103",
         "username": "Mimi",
         "fullname": "Mimi Ma",
-        "password": "mimi"
+        "password": "mimi", 
+        "isAdmin": false
     }
 ]
